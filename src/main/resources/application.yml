@@ -10,9 +10,10 @@ server:
 spring:
   profiles: dev
   jpa:
+    show-sql: true
     generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
 
 --- #real 환경
 spring:
