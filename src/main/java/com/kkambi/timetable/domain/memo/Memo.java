@@ -1,6 +1,5 @@
 package com.kkambi.timetable.domain.memo;
 
-import com.kkambi.timetable.domain.course.Course;
 import com.kkambi.timetable.domain.registrationCourse.RegistrationCourse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
