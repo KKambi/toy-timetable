@@ -1,0 +1,24 @@
+# 공통 설정
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 5000
+
+--- #dev 환경
+spring:
+  profiles: dev
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+
+--- #real 환경
+spring:
+  profiles: real
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql-server:3306/my_database
+    username: root
+    password: password
