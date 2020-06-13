@@ -1,6 +1,7 @@
-package com.kkambi.timetable.domain.memos;
+package com.kkambi.timetable.domain.memo;
 
-import com.kkambi.timetable.domain.courses.Course;
+import com.kkambi.timetable.domain.course.Course;
+import com.kkambi.timetable.domain.registrationCourse.RegistrationCourse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ public class Memo {
     private Long id;
 
     @ManyToOne
-    private Course course;
+    private RegistrationCourse registrationCourse;
 
     private String title;
 

@@ -1,10 +1,13 @@
-package com.kkambi.timetable.domain.courses;
+package com.kkambi.timetable.domain.course;
 
+import com.kkambi.timetable.domain.registrationCourse.RegistrationCourse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -30,6 +33,9 @@ public class Course {
     private int endTime;
 
     private String dayOfWeek;
+
+    @OneToMany(mappedBy = "course")
+    List<RegistrationCourse> registrationCourses = new ArrayList<>();
 
     @Builder
     public Course(String code, String title, String professor, String building, String room, int startTime, int endTime, String dayOfWeek) {
