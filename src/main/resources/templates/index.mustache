@@ -11,7 +11,9 @@
             </form>
 
             <ul class="list-lecture">
-                {{>layout/card-lecture}}
+                {{#courses}}
+                    {{>layout/card-lecture}}
+                {{/courses}}
             </ul>
         </section>
 
