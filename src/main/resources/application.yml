@@ -6,20 +6,14 @@ spring:
 server:
   port: 5000
 
+
 --- #dev 환경
+spring.profiles.include: dev-db
 spring:
   profiles: dev
-  jpa:
-    show-sql: true
-    generate-ddl: true
-    hibernate:
-      ddl-auto: validate
+
 
 --- #real 환경
+spring.profiles.include: real-db
 spring:
   profiles: real
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-server:3306/my_database
-    username: root
-    password: password

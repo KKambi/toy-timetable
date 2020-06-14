@@ -1,0 +1,13 @@
+---
+spring:
+  profiles: dev-db
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/timetable_service?serverTimezone=UTC
+    username: bok03220
+    password: khb!02030504
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        ddl-auto: none
