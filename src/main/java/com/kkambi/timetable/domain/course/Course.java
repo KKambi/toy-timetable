@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
@@ -35,7 +35,7 @@ public class Course {
     private String dayOfWeek;
 
     @OneToMany(mappedBy = "course")
-    List<RegistrationCourse> registrationCourses = new ArrayList<>();
+    Set<RegistrationCourse> registrationCourses = new LinkedHashSet<>();
 
     @Builder
     public Course(String code, String title, String professor, String building, String room, int startTime, int endTime, String dayOfWeek) {

@@ -1,6 +1,7 @@
 package com.kkambi.timetable.service;
 
 import com.kkambi.timetable.domain.course.CourseRepository;
+import com.kkambi.timetable.util.MapperUtil;
 import com.kkambi.timetable.web.dto.CourseResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class CourseService {
     @Transactional(readOnly = true)
     public List<CourseResponseDto> findAllCodeAsc() {
         return courseRepository.findAllByOrderByCodeAsc().stream()
-                .map(CourseResponseDto::new)
+                .map(course -> MapperUtil.getModelMapper().map(course, CourseResponseDto.class))
                 .collect(Collectors.toList());
     }
 }

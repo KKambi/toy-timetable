@@ -2,15 +2,15 @@ package com.kkambi.timetable.util;
 
 import org.modelmapper.ModelMapper;
 
-public class ModelMapperUtil {
+public class MapperUtil {
 
-    private static ModelMapper modelMapper = new ModelMapper();
+    private static final ModelMapper INSTANCE = new ModelMapper();
 
-    private ModelMapperUtil(){
+    public MapperUtil() {
         throw new AssertionError();
     }
 
     public static ModelMapper getModelMapper() {
-        return modelMapper;
+        return INSTANCE;
     }
 }
