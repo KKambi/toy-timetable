@@ -3,11 +3,11 @@ spring:
   profiles: real-db
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-server:3306/my_database
+    url: jdbc:mysql://mysql-server:3306/my_database?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
     username: root
     password: password
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        ddl-auto: none
+        ddl-auto: validate
