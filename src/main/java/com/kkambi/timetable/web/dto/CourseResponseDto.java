@@ -23,9 +23,9 @@ public class CourseResponseDto {
 
     private String room;
 
-    private int startTime;
+    private String startTime;
 
-    private int endTime;
+    private String endTime;
 
     private String dayOfWeek;
 
