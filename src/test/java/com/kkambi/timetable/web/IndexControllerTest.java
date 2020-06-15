@@ -30,7 +30,7 @@ class IndexControllerTest {
     private CourseRepository courseRepository;
 
     @Test
-    public void index() throws Exception {
+    public void index_return_all_courses() throws Exception {
         //given
         List<CourseResponseDto> courseResponseDtos = courseRepository.findAllByOrderByCodeAsc().stream()
                         .map(course -> MapperUtil.getModelMapper().map(course, CourseResponseDto.class))
