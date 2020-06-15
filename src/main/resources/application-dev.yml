@@ -11,3 +11,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         ddl-auto: none
+  devtools:
+    livereload:
+      enabled: true
+  mustache:
+    cache: false
