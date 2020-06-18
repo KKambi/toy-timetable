@@ -1,12 +1,12 @@
 plugins {
-    id "org.springframework.boot" version "2.2.5.RELEASE"
-    id "io.spring.dependency-management" version "1.0.9.RELEASE"
-    id "java"
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
 }
 
-group = "com.kkambi"
-version = "0.0.1-SNAPSHOT"
-sourceCompatibility = "1.8"
+group = 'com.kkambi'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 
 repositories {
     jcenter()
@@ -14,24 +14,24 @@ repositories {
 
 dependencies {
     //기본
-    implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation "org.springframework.boot:spring-boot-starter-test"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
 
     //Entity, DTO
-    implementation "org.modelmapper:modelmapper:2.3.0"
+    implementation 'org.modelmapper:modelmapper:2.3.0'
 
     //JPA
-    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     //Flyway
-    implementation "org.flywaydb:flyway-core"
+    implementation 'org.flywaydb:flyway-core'
 
     //JDBC, MySQL
-    implementation "org.springframework.boot:spring-boot-starter-jdbc"
-    implementation "mysql:mysql-connector-java"
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'mysql:mysql-connector-java'
 
     //Front
-    implementation "org.springframework.boot:spring-boot-starter-mustache"
+    implementation 'org.springframework.boot:spring-boot-starter-mustache'
 
     //Lombok
     annotationProcessor 'org.projectlombok:lombok'
@@ -40,12 +40,20 @@ dependencies {
     testImplementation 'org.projectlombok:lombok'
 
     //devtools
-    implementation "org.springframework.boot:spring-boot-devtools:2.0.4.RELEASE"
+    implementation 'org.springframework.boot:spring-boot-devtools:2.0.4.RELEASE'
+
+    //log4j2
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.3'
 }
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
+    }
+
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
 }
 
