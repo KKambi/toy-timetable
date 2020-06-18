@@ -1,7 +1,7 @@
 # 공통 설정
 spring:
   profiles:
-    active: real
+    active: dev
 
 server:
   port: 5000

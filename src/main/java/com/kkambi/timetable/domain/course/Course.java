@@ -4,6 +4,7 @@ import com.kkambi.timetable.domain.registrationCourse.RegistrationCourse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -32,13 +33,26 @@ public class Course {
 
     private int endTime;
 
-    private String dayOfWeek;
+    @ColumnDefault("N")
+    private String mon;
+
+    @ColumnDefault("N")
+    private String tue;
+
+    @ColumnDefault("N")
+    private String wed;
+
+    @ColumnDefault("N")
+    private String thu;
+
+    @ColumnDefault("N")
+    private String fri;
 
     @OneToMany(mappedBy = "course")
     Set<RegistrationCourse> registrationCourses = new LinkedHashSet<>();
 
     @Builder
-    public Course(String code, String title, String professor, String building, String room, int startTime, int endTime, String dayOfWeek) {
+    public Course(String code, String title, String professor, String building, String room, int startTime, int endTime, String mon, String tue, String wed, String thu, String fri) {
         this.code = code;
         this.title = title;
         this.professor = professor;
@@ -46,6 +60,10 @@ public class Course {
         this.room = room;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.dayOfWeek = dayOfWeek;
+        this.mon = mon;
+        this.tue = tue;
+        this.wed = wed;
+        this.thu = thu;
+        this.fri = fri;
     }
 }

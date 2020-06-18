@@ -17,7 +17,7 @@ public class CourseService {
     private final CourseRepository courseRepository;
 
     @Transactional(readOnly = true)
-    public List<CourseResponseDto> findAllCodeAsc() {
+    public List<CourseResponseDto> findAllLecture() {
         return courseRepository.findAllByOrderByCodeAsc().stream()
                 .map(course -> MapperUtil.getModelMapper().map(course, CourseResponseDto.class))
                 .collect(Collectors.toList());

@@ -2,8 +2,6 @@ package com.kkambi.timetable.util;
 
 import com.kkambi.timetable.domain.course.Course;
 import com.kkambi.timetable.web.dto.CourseResponseDto;
-import org.modelmapper.AbstractConverter;
-import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
@@ -21,24 +19,23 @@ public class MapperUtil {
 
     static {
         PropertyMap<Course, CourseResponseDto> courseResponseDtoPropertyMap = new PropertyMap<Course, CourseResponseDto>() {
-            protected void configure() {
-                Converter<Integer, String> timeConverter = new AbstractConverter<Integer, String>() {
-                    @Override
-                    protected String convert(Integer source) {
-                        return ConvertUtil.convertTime(source);
-                    }
-                };
+            @Override
+            protected void configure () {
+                using(ctx -> ConvertUtil.convertTime(
+                        ((Course) ctx.getSource()).getStartTime()
+                )).map(source, destination.getStartTime());
 
-                Converter<String, String> dayConverter = new AbstractConverter<String, String>() {
-                    @Override
-                    protected String convert(String source) {
-                        return ConvertUtil.convertDayOfWeek(source);
-                    }
-                };
+                using(ctx -> ConvertUtil.convertTime(
+                        ((Course) ctx.getSource()).getEndTime()
+                )).map(source, destination.getEndTime());
 
-                using(timeConverter).map(source.getStartTime(), destination.getStartTime());
-                using(timeConverter).map(source.getEndTime(), destination.getEndTime());
-                using(dayConverter).map(source.getDayOfWeek(), destination.getDayOfWeek());
+                using(ctx -> ConvertUtil.convertDay(
+                        ((Course) ctx.getSource()).getMon(),
+                        ((Course) ctx.getSource()).getTue(),
+                        ((Course) ctx.getSource()).getWed(),
+                        ((Course) ctx.getSource()).getThu(),
+                        ((Course) ctx.getSource()).getFri()
+                )).map(source, destination.getDayOfWeek());
             }
         };
 
