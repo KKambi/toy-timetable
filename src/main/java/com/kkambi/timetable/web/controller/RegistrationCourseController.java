@@ -1,14 +1,21 @@
-package com.kkambi.timetable.web;
+package com.kkambi.timetable.web.controller;
 
+import com.kkambi.timetable.domain.registrationCourse.RegistrationCourse;
 import com.kkambi.timetable.service.RegistrationCourseService;
+import com.kkambi.timetable.web.JsonResponseMessage;
 import com.kkambi.timetable.web.dto.RegistrationCourseSaveDto;
 import com.kkambi.timetable.web.dto.RegistrationCourseSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,7 +26,7 @@ public class RegistrationCourseController {
     private final RegistrationCourseService registrationCourseService;
 
     @PostMapping("/course")
-    public Long register(@RequestBody RegistrationCourseSaveRequestDto registrationCourseSaveRequestDto) throws Exception {
+    public ResponseEntity<JsonResponseMessage> register(@RequestBody RegistrationCourseSaveRequestDto registrationCourseSaveRequestDto) throws Exception {
 
         //JSON Post Body
         logger.info("");
@@ -27,7 +34,6 @@ public class RegistrationCourseController {
         logger.info("POST: /course: courseId : " + registrationCourseSaveRequestDto.getCourseId());
         logger.info("POST: /course: userId : " + registrationCourseSaveRequestDto.getUserId());
         logger.info("POST: /course: time : " + registrationCourseSaveRequestDto.getTime());
-        logger.info("");
 
         //1. 조회용 Dto 변환
         RegistrationCourseSaveDto registrationCourseSaveDto = registrationCourseService.parseRegisterDto(registrationCourseSaveRequestDto);
@@ -37,10 +43,25 @@ public class RegistrationCourseController {
 
         //3. 겹치는 강의가 있다면 Throw Exception
         if (isOverlapped) {
+            logger.info("===== 강의 등록 실패 : 시간 중복 =====");
             throw new Exception("겹쳐요");
         }
 
         //4. 겹치는 강의가 없다면 Save
-        return registrationCourseService.register(registrationCourseSaveRequestDto);
+        RegistrationCourse registrationCourse = registrationCourseService.register(registrationCourseSaveRequestDto);
+        JsonResponseMessage message = new JsonResponseMessage("Success", "강의 등록 성공", "", "");
+
+        message.setStartTime(registrationCourse.getStartTime());
+        message.setDuration(registrationCourse.getEndTime() - registrationCourse.getStartTime());
+
+        List<String> dayOfWeek = new ArrayList<>();
+        dayOfWeek.add(registrationCourse.getMon());
+        dayOfWeek.add(registrationCourse.getTue());
+        dayOfWeek.add(registrationCourse.getWed());
+        dayOfWeek.add(registrationCourse.getThu());
+        dayOfWeek.add(registrationCourse.getFri());
+        message.setDayOfWeek(dayOfWeek);
+
+        return new ResponseEntity<JsonResponseMessage>(message, HttpStatus.OK);
     }
 }

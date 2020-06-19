@@ -1,4 +1,4 @@
-package com.kkambi.timetable.web;
+package com.kkambi.timetable.web.controller;
 
 import com.kkambi.timetable.service.CourseService;
 import lombok.RequiredArgsConstructor;
