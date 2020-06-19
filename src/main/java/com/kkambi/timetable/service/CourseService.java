@@ -1,5 +1,6 @@
 package com.kkambi.timetable.service;
 
+import com.kkambi.timetable.domain.course.Course;
 import com.kkambi.timetable.domain.course.CourseRepository;
 import com.kkambi.timetable.util.MapperUtil;
 import com.kkambi.timetable.web.dto.CourseResponseDto;
@@ -15,6 +16,14 @@ import java.util.stream.Collectors;
 public class CourseService {
 
     private final CourseRepository courseRepository;
+
+    @Transactional(readOnly = true)
+    public CourseResponseDto findById(Long id) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        return MapperUtil.getModelMapper().map(course, CourseResponseDto.class);
+    }
 
     @Transactional(readOnly = true)
     public List<CourseResponseDto> findAllCourses() {

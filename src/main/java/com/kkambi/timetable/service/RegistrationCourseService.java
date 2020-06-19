@@ -31,7 +31,7 @@ public class RegistrationCourseService {
         return ParseUtil.parseRegisterRequestDto(registrationCourseSaveRequestDto);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<RegistrationCourseResponseDto> findAllRegistrationCourses() {
         return registrationCourseRepository.findAllByOrderByStartTime().stream()
                 .map(registrationCourse -> {
@@ -47,7 +47,7 @@ public class RegistrationCourseService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public boolean findOverlappedRegistrationCourse(RegistrationCourseSaveDto registrationCourseSaveDto) {
         List<RegistrationCourse> registrationCourses = registrationCourseRepository.findOverlappedRegistrationCourse(
                 registrationCourseSaveDto.getStartTime(),
