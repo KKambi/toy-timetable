@@ -1,3 +1,20 @@
+import { renderRegistrationCourses } from "./renderRegistrationCourses.js"
+
+//등록된 강의 목록 불러오기
+(async function(){
+    try {
+        const res = await fetch("http://localhost:5000/registrationCourses");
+
+        const registrationCourses = await res.json();
+
+        renderRegistrationCourses(registrationCourses);
+
+    } catch (err) {
+        console.log("등록강의 조회 오류 발생!");
+        console.log(err);
+    }
+})();
+
 //Event Delegation - 강의 목록의 개별 강의 클릭 시
 (function(){
     const listLecture = document.querySelector('.list-lecture');
@@ -36,12 +53,13 @@
         const lecture = event.target.closest("#modal-lecture-info");
 
         const lectureInfo = {
-            id: lecture.querySelector(".lecture-id").innerText,
+            courseId: lecture.querySelector(".lecture-id").innerText,
+            userId: document.querySelector("#user-id").innerText,
             time: lecture.querySelector(".lecture-time span").innerText,
         }
 
         try {
-            const res = await fetch('http://localhost:5000/course", {
+            const res = await fetch("http://localhost:5000/course", {
                 method: "POST",
                 cache: "no-cache",
                 headers: {
@@ -50,9 +68,21 @@
                 body: JSON.stringify(lectureInfo),
             });
 
-            const suc = await res;
+            if (res.status === 200) {
+                alert("강의 등록 성공!");
+            }
+            else {
+                alert("강의 등록 실패!");
+            }
+
+            const jsonBody = await res.json();
+            console.log(jsonBody);
+
+            window.location.reload();
+
         } catch (err) {
-            console.log("이미 등록한 강의와 시간이 겹쳐요!");
+            console.log("강의 등록 오류 발생!");
+            console.log(err);
         }
     })
 })();

@@ -345,7 +345,7 @@ ol, ul {
       margin-right: 0; }
       .table-schedule .table-schedule-subject .lecture-time a {
         padding: 0.5rem 0.75rem;
-        overflow: scroll; }
+        overflow: auto; }
         .table-schedule .table-schedule-subject .lecture-time a .lecture-noti {
           display: flex;
           align-items: center; }
