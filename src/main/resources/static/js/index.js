@@ -5,7 +5,7 @@ import { showModalLectureTask } from "./showModalLectureTask.js"
 //Initialization - 등록된 강의 목록 불러오기
 (async function(){
     try {
-        const res = await fetch("http://localhost:5000/registrationCourses");
+        const res = await fetch(`${window.location.protocol}//${window.location.host}/registrationCourses`);
         const registrationCourses = await res.json();
         renderRegistrationCourses(registrationCourses);
     } catch (err) {
@@ -40,7 +40,7 @@ import { showModalLectureTask } from "./showModalLectureTask.js"
 
             const id = lecture.querySelector(".lecture-id").innerText;
 
-            const res = await fetch(`http://localhost:5000/course/${id}`);
+            const res = await fetch(`${window.location.protocol}//${window.location.host}/course/${id}`);
             const course = await res.json();
 
             showModalLectureTask(course);
@@ -65,7 +65,7 @@ import { showModalLectureTask } from "./showModalLectureTask.js"
         }
 
         try {
-            const res = await fetch("http://localhost:5000/course", {
+            const res = await fetch(`${window.location.protocol}//${window.location.host}/course`, {
                 method: "POST",
                 cache: "no-cache",
                 headers: {
