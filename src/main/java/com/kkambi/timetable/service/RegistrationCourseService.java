@@ -44,7 +44,7 @@ public class RegistrationCourseService {
     }
 
     @Transactional
-    public Long register(RegistrationCourseSaveRequestDto registrationCourseSaveRequestDto) {
+    public RegistrationCourse register(RegistrationCourseSaveRequestDto registrationCourseSaveRequestDto) {
         RegistrationCourseSaveDto registrationCourseSaveDto = ParseUtil.parseRegisterRequestDto(registrationCourseSaveRequestDto);
 
         RegistrationCourse registrationCourse = MapperUtil.getModelMapper().map(registrationCourseSaveDto, RegistrationCourse.class);
@@ -52,6 +52,6 @@ public class RegistrationCourseService {
         registrationCourse.setUser(entityManager.getReference(User.class, registrationCourseSaveDto.getUserId()));
         entityManager.persist(registrationCourse);
 
-        return registrationCourseRepository.save(registrationCourse).getId();
+        return registrationCourseRepository.save(registrationCourse);
     }
 }
