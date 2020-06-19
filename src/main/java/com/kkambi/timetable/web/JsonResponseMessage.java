@@ -25,6 +25,8 @@ public class JsonResponseMessage {
 
     private int duration;
 
+    private String location;
+
     private List<String> dayOfWeek;
 
     public JsonResponseMessage(String status, String message, String errorMessage, String errorCode) {

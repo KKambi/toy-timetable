@@ -3,6 +3,7 @@ package com.kkambi.timetable.web.controller;
 import com.kkambi.timetable.domain.registrationCourse.RegistrationCourse;
 import com.kkambi.timetable.service.RegistrationCourseService;
 import com.kkambi.timetable.web.JsonResponseMessage;
+import com.kkambi.timetable.web.dto.RegistrationCourseResponseDto;
 import com.kkambi.timetable.web.dto.RegistrationCourseSaveDto;
 import com.kkambi.timetable.web.dto.RegistrationCourseSaveRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +26,11 @@ public class RegistrationCourseController {
     private static final Logger logger = LogManager.getLogger(RegistrationCourseController.class);
 
     private final RegistrationCourseService registrationCourseService;
+
+    @GetMapping("/registrationCourses")
+    public List<RegistrationCourseResponseDto> getAllRegistrationCourses() {
+        return registrationCourseService.findAllRegistrationCourses();
+    }
 
     @PostMapping("/course")
     public ResponseEntity<JsonResponseMessage> register(@RequestBody RegistrationCourseSaveRequestDto registrationCourseSaveRequestDto) throws Exception {

@@ -6,6 +6,7 @@ import com.kkambi.timetable.domain.registrationCourse.RegistrationCourseReposito
 import com.kkambi.timetable.domain.user.User;
 import com.kkambi.timetable.util.MapperUtil;
 import com.kkambi.timetable.util.ParseUtil;
+import com.kkambi.timetable.web.dto.RegistrationCourseResponseDto;
 import com.kkambi.timetable.web.dto.RegistrationCourseSaveDto;
 import com.kkambi.timetable.web.dto.RegistrationCourseSaveRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -27,6 +29,22 @@ public class RegistrationCourseService {
 
     public RegistrationCourseSaveDto parseRegisterDto(RegistrationCourseSaveRequestDto registrationCourseSaveRequestDto) {
         return ParseUtil.parseRegisterRequestDto(registrationCourseSaveRequestDto);
+    }
+
+    @Transactional
+    public List<RegistrationCourseResponseDto> findAllRegistrationCourses() {
+        return registrationCourseRepository.findAllByOrderByStartTime().stream()
+                .map(registrationCourse -> {
+                    RegistrationCourseResponseDto registrationCourseResponseDto = MapperUtil.getModelMapper().map(registrationCourse, RegistrationCourseResponseDto.class);
+                    Course course = registrationCourse.getCourse();
+                    registrationCourseResponseDto.setCode(course.getCode());
+                    registrationCourseResponseDto.setTitle(course.getTitle());
+                    registrationCourseResponseDto.setProfessor(course.getProfessor());
+                    registrationCourseResponseDto.setBuilding(course.getBuilding());
+                    registrationCourseResponseDto.setRoom(course.getRoom());
+                    return registrationCourseResponseDto;
+                })
+                .collect(Collectors.toList());
     }
 
     @Transactional

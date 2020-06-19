@@ -9,8 +9,8 @@ import java.util.List;
 public interface RegistrationCourseRepository extends JpaRepository<RegistrationCourse, Long> {
 
     @Query(value = "select * from registration_course t1 " +
-            "where :reg_st <= t1.end_time " +
-            "and :reg_et >= t1.start_time " +
+            "where :reg_st < t1.end_time " +
+            "and :reg_et > t1.start_time " +
             "and ((t1.mon = 'Y' and :reg_mon = t1.mon) " +
             "OR (t1.tue = 'Y' and :reg_tue = t1.tue) " +
             "OR (t1.wed = 'Y' and :reg_wed = t1.wed) " +
@@ -23,4 +23,6 @@ public interface RegistrationCourseRepository extends JpaRepository<Registration
                                                                      @Param("reg_wed") String wed,
                                                                      @Param("reg_thu") String thu,
                                                                      @Param("reg_fri") String fri);
+
+    public List<RegistrationCourse> findAllByOrderByStartTime();
 }
