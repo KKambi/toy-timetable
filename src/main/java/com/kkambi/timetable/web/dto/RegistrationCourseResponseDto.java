@@ -9,19 +9,16 @@ public class RegistrationCourseResponseDto {
 
     private Long id;
 
-    //별도맵핑
+    private Long courseId;
+
     private String code;
 
-    //별도맵핑
     private String title;
 
-    //별도맵핑
     private String professor;
 
-    //별도맵핑
     private String building;
 
-    //별도맵핑
     private String room;
 
     private int startTime;

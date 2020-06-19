@@ -37,6 +37,7 @@ public class RegistrationCourseService {
                 .map(registrationCourse -> {
                     RegistrationCourseResponseDto registrationCourseResponseDto = MapperUtil.getModelMapper().map(registrationCourse, RegistrationCourseResponseDto.class);
                     Course course = registrationCourse.getCourse();
+                    registrationCourseResponseDto.setCourseId(course.getId());
                     registrationCourseResponseDto.setCode(course.getCode());
                     registrationCourseResponseDto.setTitle(course.getTitle());
                     registrationCourseResponseDto.setProfessor(course.getProfessor());

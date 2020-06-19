@@ -22,7 +22,7 @@ function renderRegistrationCourses(registrationCourses) {
          ]);
 
     registrationCourses.forEach(registrationCourse => {
-        const { id, title, building, room, startTime, endTime } = registrationCourse;
+        const { id, courseId, title, building, room, startTime, endTime } = registrationCourse;
 
         const dayOfWeek = new Map(
             [
@@ -39,7 +39,7 @@ function renderRegistrationCourses(registrationCourses) {
                         `<li class="lecture-time ${timeConverter.get(endTime - startTime)}-hr hr-${startTime}" data-event="lecture-${color[id % 10]}">
                              <a href="#">
                                  <div class="lecture-info">
-                                     <div class="lecture-id" style="display: none;">${id}</div>
+                                     <div class="lecture-id" style="display: none;">${courseId}</div>
                                      <h6 class="lecture-title">${title}</h6>
                                      <h6 class="lecture-location">${building}동 ${room}</h6>
                                  </div>

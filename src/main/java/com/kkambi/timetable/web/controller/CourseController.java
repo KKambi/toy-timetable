@@ -19,6 +19,11 @@ public class CourseController {
 
     @GetMapping("/course/{id}")
     public CourseResponseDto findById(@PathVariable("id") Long id) {
+
+        logger.info("");
+        logger.info("===== 강의 조회 요청 =====");
+        logger.info("GET: /course/" + id);
+
         return courseService.findById(id);
     }
 }

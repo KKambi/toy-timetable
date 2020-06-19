@@ -1,14 +1,13 @@
 import { renderRegistrationCourses } from "./renderRegistrationCourses.js"
+import { showModalLectureInfo } from "./showModalLectureInfo.js"
+import { showModalLectureTask } from "./showModalLectureTask.js"
 
-//등록된 강의 목록 불러오기
+//Initialization - 등록된 강의 목록 불러오기
 (async function(){
     try {
         const res = await fetch("http://localhost:5000/registrationCourses");
-
         const registrationCourses = await res.json();
-
         renderRegistrationCourses(registrationCourses);
-
     } catch (err) {
         console.log("등록강의 조회 오류 발생!");
         console.log(err);
@@ -20,28 +19,35 @@ import { renderRegistrationCourses } from "./renderRegistrationCourses.js"
     const listLecture = document.querySelector('.list-lecture');
 
     listLecture.addEventListener("click", (event) => {
-        const cardLecture = event.target.closest("li.card-lecture");
-
-        const lectureInfo = {
-            id: cardLecture.querySelector(".lecture-id").innerText,
-            title: cardLecture.querySelector(".lecture-title").innerText,
-            dateTime: cardLecture.querySelector(".lecture-time span").innerText,
-            code: cardLecture.querySelector(".list-lecture-info li:nth-child(1)").innerText,
-            professor: cardLecture.querySelector(".list-lecture-info li:nth-child(2)").innerText,
-            location: cardLecture.querySelector(".list-lecture-info li:nth-child(3)").innerText,
+        try {
+            showModalLectureInfo(event);
+        } catch (err) {
+            console.log("강의정보 모달 오류 발생!");
+            console.log(err);
         }
+    })
+})();
 
-        const modalBody = document.querySelector(".modal-body");
+//Event Delegation - 등록 강의 목록의 개별 강의 클릭 시
+(function(){
+    const timeTable = document.querySelector('.table-schedule-subject');
 
-        modalBody.querySelector(".lecture-id").innerHTML = lectureInfo.id;
-        modalBody.querySelector(".lecture-title").innerHTML = lectureInfo.title;
-        modalBody.querySelector(".lecture-time span").innerHTML = lectureInfo.dateTime;
-        modalBody.querySelector(".lecture-code span").innerHTML = lectureInfo.code;
-        modalBody.querySelector(".lecture-professor span").innerHTML = lectureInfo.professor;
-        modalBody.querySelector(".lecture-location span").innerHTML = lectureInfo.location;
-        modalBody.querySelector(".txt-description").innerHTML = lectureInfo.title;
+    timeTable.addEventListener("click", async (event) => {
+        try {
+            const lecture = event.target.closest("li.lecture-time");
 
-        $('#modal-lecture-info').modal('show');
+            if (lecture === null) return;
+
+            const id = lecture.querySelector(".lecture-id").innerText;
+
+            const res = await fetch(`http://localhost:5000/course/${id}`);
+            const course = await res.json();
+
+            showModalLectureTask(course);
+        } catch (err) {
+            console.log("등록강의정보 모달 오류 발생!");
+            console.log(err);
+        }
     })
 })();
 
@@ -87,9 +93,6 @@ import { renderRegistrationCourses } from "./renderRegistrationCourses.js"
     })
 })();
 
-$('.lecture-time > a').click(function () {
-  $('#modal-lecture-task').modal('show');
-});
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();

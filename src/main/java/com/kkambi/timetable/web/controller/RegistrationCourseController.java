@@ -35,7 +35,6 @@ public class RegistrationCourseController {
     @PostMapping("/course")
     public ResponseEntity<JsonResponseMessage> register(@RequestBody RegistrationCourseSaveRequestDto registrationCourseSaveRequestDto) throws Exception {
 
-        //JSON Post Body
         logger.info("");
         logger.info("===== 강의 등록 요청 =====");
         logger.info("POST: /course: courseId : " + registrationCourseSaveRequestDto.getCourseId());

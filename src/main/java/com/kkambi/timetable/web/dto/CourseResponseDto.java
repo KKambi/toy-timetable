@@ -1,11 +1,9 @@
 package com.kkambi.timetable.web.dto;
 
-import com.kkambi.timetable.domain.registrationCourse.RegistrationCourse;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -29,8 +27,6 @@ public class CourseResponseDto {
 
     private String dayOfWeek;
 
-    Set<RegistrationCourse> registrationCourses;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,12 +40,11 @@ public class CourseResponseDto {
                 Objects.equals(room, that.room) &&
                 Objects.equals(startTime, that.startTime) &&
                 Objects.equals(endTime, that.endTime) &&
-                Objects.equals(dayOfWeek, that.dayOfWeek) &&
-                Objects.equals(registrationCourses, that.registrationCourses);
+                Objects.equals(dayOfWeek, that.dayOfWeek);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, title, professor, building, room, startTime, endTime, dayOfWeek, registrationCourses);
+        return Objects.hash(id, code, title, professor, building, room, startTime, endTime, dayOfWeek);
     }
 }
