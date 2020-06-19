@@ -14,7 +14,7 @@ function showModalLectureInfo(event) {
 
     modalBody.querySelector(".lecture-id").innerHTML = lectureInfo.id;
     modalBody.querySelector(".lecture-title").innerHTML = lectureInfo.title;
-    modalBody.querySelector(".lecture-time span").innerHTML = `강의 시간 : ${lectureInfo.dateTime}`;
+    modalBody.querySelector(".lecture-time span").innerHTML = lectureInfo.dateTime;
     modalBody.querySelector(".lecture-code span").innerHTML = lectureInfo.code;
     modalBody.querySelector(".lecture-professor span").innerHTML = lectureInfo.professor;
     modalBody.querySelector(".lecture-location span").innerHTML = lectureInfo.location;
